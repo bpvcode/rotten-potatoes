@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: movies
-          image: bpvcode/rotten-potatoes:v2
+          image: bpvcode/rotten-potatoes
           ports:
             - containerPort: 5000 #Same as we are exposing in the Dockerfile
           env:
