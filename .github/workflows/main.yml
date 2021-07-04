@@ -64,3 +64,11 @@ jobs:
           manifests: |
             k8s/mongodb/deployment.yml
             k8s/mongodb/service.yml
+      # Deploy  to Kubernetes  
+      - name: Deploy Web
+        uses: Azure/k8s-deploy@v1
+        with:
+        # Pass manifests via project path (inside k8s/web folder you can find deployment.yml - this file have both the kind deployment and service)
+          manifests: |
+            k8s/web/deployment.yml
+          images: bpvcode/rotten-potatoes:${{ github.run_number }}
