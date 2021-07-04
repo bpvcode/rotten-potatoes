@@ -50,9 +50,17 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      # Kubernetes set context (marketplace)
+      # Kubernetes set context (marketplace) context is set via environment variable KUBE_CONFIG (defined in settings/secrets)
       - name: Kubernetes set context
         uses: Azure/k8s-set-context@v1.1
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      # Deploy  to Kubernetes  
+      - name: Deploy Mongo
+        uses: Azure/k8s-deploy@v1
+        with:
+        # Pass manifests via project path (inside k8s/mongodb folder you can find deployment.yml AND service.yml)
+          manifests: |
+            k8s/mongodb/deployment.yml
+            k8s/mongodb/service.yml
