@@ -43,4 +43,4 @@ spec:
   - port: 80 # Default port to web applications
     targetPort: 5000 # Container port
     nodePort: 30000
-  type: NodePort
+  type: LoadBalancer
