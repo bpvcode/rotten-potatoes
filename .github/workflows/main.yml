@@ -24,11 +24,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      # Docker login action to my repo bpvcode
       - name: Docker Login
         uses: docker/login-action@v1.10.0
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_PWD }}
+      # Build and push the image to the bpvcode docker hub repo   
       - name: Build and push Docker images
         uses: docker/build-push-action@v2.6.1
         with:
@@ -40,4 +42,14 @@ jobs:
             bpvcode/rotten-potatoes:${{ github.run_number }}
             
           
-          
+  CD:       
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      # Kubernetes set context (marketplace)
+      - name: Kubernetes set context
+        uses: Azure/k8s-set-context@v1.1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
