@@ -45,6 +45,9 @@ jobs:
   CD:       
     runs-on: ubuntu-latest
     
+    #This JOB needs the CI job to finish before can start run (so CI job needs to be complete to run the CD job)
+    needs: [CI]
+    
     steps:
       - uses: actions/checkout@v2
       # Kubernetes set context (marketplace)
